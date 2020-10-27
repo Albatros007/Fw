@@ -13,16 +13,13 @@
   </head>
   <body>
 
-
-
       <div class="container">
 
-          <h1 class="alert-success">Main Layout</h1>
+          <h1 class="alert-success">My Layout</h1>
 
           <?= $content ?>
-    
+
       </div>
-    
     
   </body>
 </html>

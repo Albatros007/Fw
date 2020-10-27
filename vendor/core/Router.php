@@ -102,10 +102,16 @@ class Router
                 $actionMethod = self::prepareActionName(self::$currentRoute['action']).'Action';
                 //debug(self::$currentRoute);
                 if (method_exists($cObj, $actionMethod)) {
-                    
-                    $cObj->render();
+
+                    if (RENDER_TYPE === 1) {
+                        $cObj->render();
+                    }
+
                     $cObj->$actionMethod(self::$currentRoute['params']);
-                    $cObj->render->init();
+
+                    if (RENDER_TYPE === 1) {
+                        $cObj->render->init();
+                    }
 
                 } else {
                     throw new NotFoundExeption('Экшен '.$actionMethod.' не найден');

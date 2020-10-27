@@ -16,7 +16,11 @@ abstract class Controller
             \vendor\core\Db::instance();
         }
     }
-    
+
+    /*
+     * Вызывется автоматически из vendor\core\Router при
+     * установленной константе RENDER_TYPE в положение 1, т.е. в авто
+     * */
     public function render()
     {
         $route = Router::getCurrentRoute();

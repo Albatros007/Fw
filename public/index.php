@@ -11,6 +11,14 @@ define('APP', dirname(__DIR__).'/app');
 define('ERROR_LOG', 0);
 define('CACHE', dirname(__DIR__).'/tmp/cache');
 
+/*
+ * render type:
+0 - manual
+1 - auto
+*/
+define('RENDER_TYPE', 0);
+
+
 spl_autoload_register(function($class){
     $file = ROOT.DIRECTORY_SEPARATOR.$class.'.php';
     if (file_exists($file)){

@@ -24,7 +24,7 @@ class Cache
             return true;
         }
         
-        throw new \Exception('Ошибка записи фйла кэша');
+        throw new \Exception('Ошибка записи файла кэша');
     }
     
     public function get($key) 

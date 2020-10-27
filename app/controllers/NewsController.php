@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\News;
 use vendor\core\Fw;
+use vendor\core\Render;
 
 class NewsController extends BaseController
 {
@@ -22,14 +23,29 @@ class NewsController extends BaseController
             Fw::$app->cache->set('news', $news);
         }
         
-        $this->render->setData(compact('news'));
+        //$this->render->setData(compact('news'));
+
+        Render::set(
+            compact('news'),
+            'index'
+        );
     }
+
+    /*public function soloAction($id)
+    {
+        $news = News::getNews($id);
+        $this->render->setLayout('my');
+        $this->render->setData(compact('news'));
+    }*/
 
     public function soloAction($id)
     {
         $news = News::getNews($id);
-         //$this->render->setLayout(false);
-        $this->render->setData(compact('news'));
+        Render::set(
+            compact('news'),
+            'solo',
+            'my'
+        );
     }
     
     public function soloAjaxAction()

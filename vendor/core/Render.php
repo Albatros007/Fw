@@ -4,7 +4,9 @@ namespace vendor\core;
 
 class Render 
 {
-    private $layout = 'main';
+    const DEFAULT_LAYOUT = 'main';
+
+    private $layout = self::DEFAULT_LAYOUT;
     private $view;
     private $path;
     private $data;
@@ -59,7 +61,50 @@ class Render
         }
         
     }
-    
+
+    public static function set($data, $viewFile, $layout = false)
+    {
+        $layout = ($layout) ? $layout : self::DEFAULT_LAYOUT;
+
+        if (!empty($data)) {
+            extract($data);
+        }
+
+        ob_start();
+
+        $viewFile =  APP
+            .DIRECTORY_SEPARATOR
+            .'views'
+            .DIRECTORY_SEPARATOR
+            .Router::getCurrentRoute()['controller']
+            .DIRECTORY_SEPARATOR
+            .$viewFile
+            .'.php';
+
+        if (file_exists($viewFile)) {
+            require_once $viewFile;
+        } else {
+            throw new NotFoundExeption('Вид '.$viewFile.' не найден');
+        }
+
+        $content = ob_get_clean();
+
+        $layoutFile = APP
+            .DIRECTORY_SEPARATOR
+            .'views'
+            .DIRECTORY_SEPARATOR
+            .'layouts'
+            .DIRECTORY_SEPARATOR
+            .$layout
+            .'.php';
+
+        if (file_exists($layoutFile)) {
+            require_once $layoutFile;
+        } else {
+            throw new NotFoundExeption('Layout '.$layoutFile.' не найден');
+        }
+    }
+
     public function init() 
     {
         if ($this->layout !== false) {
